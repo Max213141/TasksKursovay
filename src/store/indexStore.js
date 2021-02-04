@@ -5,7 +5,8 @@ export default createStore({
   modules: {},
   state () {
     return {
-      orderList: []
+      orderList: [],
+      activeTasks: 0
     }
   },
   mutations: {
@@ -13,5 +14,9 @@ export default createStore({
       state.orderList.push(payload)
     }
   },
-  getters: {}
+  getters: {
+    activeTasks (state) {
+      return state.activeTasks
+    }
+  }
 })

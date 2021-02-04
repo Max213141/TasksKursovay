@@ -28,7 +28,8 @@ export default {
       date: '',
       text: '',
       order: {},
-      status: null
+      status: null,
+      badgeText: null
     }
   },
   methods: {
@@ -43,9 +44,11 @@ export default {
         title: this.title,
         date: this.date,
         text: this.text,
-        status: this.status
+        status: this.status,
+        badgeText: this.statusOfBadge
       }
       this.$store.commit('addToOrderList', this.order)
+      this.$router.push('/')
       this.order = {}
       console.log(this.$store.orderList)
     }
@@ -58,6 +61,13 @@ export default {
       const givenDate = new Date(this.date).getTime()
       const currentDate = new Date().getTime()
       return givenDate > currentDate
+    },
+    statusOfBadge () {
+      if (this.status === 'done') {
+        return this.badgeText = 'Завершен'
+      } else if (this.status === 'active') {
+        return this.badgeText = 'Активен'
+      }
     }
   }
 }
