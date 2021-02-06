@@ -45,7 +45,8 @@ export default {
         date: this.date,
         text: this.text,
         status: this.status,
-        badgeText: this.statusOfBadge
+        badgeText: this.statusOfBadge,
+        id: this.getRandomInt
       }
       this.$store.commit('addToOrderList', this.order)
       this.$router.push('/')
@@ -68,6 +69,11 @@ export default {
       } else if (this.status === 'active') {
         return this.badgeText = 'Активен'
       }
+    },
+    getRandomInt () {
+      const min = Math.ceil(0)
+      const max = Math.floor(10000)
+      return Math.floor(Math.random() * (max - min)) + min
     }
   }
 }

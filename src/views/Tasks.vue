@@ -11,12 +11,17 @@
         <p>
           <strong>
             <small>
-              {{order.date}}
+              {{ new Date(order.date).toLocaleDateString() }}
             </small>
           </strong>
         </p>
         <p>{{order.text}}</p>
-        <button class="btn primary" @click="toTheTask(order.id)">Посмотреть</button>
+        <router-link
+          :to="{name:'task', params:{id:order.id}}"
+          v-slot="{navigate}"
+        >
+          <button class="btn primary" @click="navigate">Посмотреть</button>
+        </router-link>
       </div>
   </div>
   </div>
@@ -27,17 +32,14 @@ import AppStatus from '../components/AppStatus'
 
 export default {
   components: { AppStatus },
-  methods: {
-    toTheTask (id) {
-      this.$router.push(`/task + ${id}`)
-    }
-  },
+  methods: {},
   computed: {
     orderList () {
-      return this.$store.state.orderList
+      return this.$store.getters.tasks
     },
     numberOfTasks () {
-      return this.$store.activeTasks = this.$store.state.orderList.filter(task=> task.status === 'active').length
+      const activeTasks = this.$store.state.orderList.filter(task => task.status === 'active').length
+      return activeTasks
     }
   }
 }
